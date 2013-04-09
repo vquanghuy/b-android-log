@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.IO;
 
 namespace BLog
 {
@@ -16,6 +17,14 @@ namespace BLog
         {
             InitializeComponent();
         }
+
+        //config file name and path
+        private const String configFile = "b_log.conf";
+        private String configFilePath = null;
+
+        //config info
+        private String AndroidSDKPath = null;
+        private String ADBPath = null;
 
         private void btnRefesh_Click(object sender, EventArgs e)
         {
@@ -51,17 +60,53 @@ namespace BLog
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            //String str = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-
-            //MessageBox.Show(str);
-
             ConfigForm wfConfigForm = new ConfigForm();
             wfConfigForm.StartPosition = FormStartPosition.CenterParent;
+
+            wfConfigForm.AndroidSDKPath = AndroidSDKPath;
 
             DialogResult dlgResult = wfConfigForm.ShowDialog(this);
 
             if (dlgResult == DialogResult.OK)
-                MessageBox.Show("Config OK");
+            {   
+                //set ADB path
+                AndroidSDKPath = wfConfigForm.AndroidSDKPath;
+                ADBPath = AndroidSDKPath + "\\platform-tools\\adb.exe";
+
+                //override old config
+                StreamWriter sw = new StreamWriter(configFilePath, false);
+                sw.WriteLine(AndroidSDKPath);
+
+                sw.Close();
+            }
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            //load default config file
+            configFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + configFile;
+
+            if (File.Exists(configFilePath))    //if config file not exist, create a new one
+            {
+                //read config from file
+                StreamReader sr = new StreamReader(configFilePath);
+
+                AndroidSDKPath = sr.ReadLine();
+                ADBPath = AndroidSDKPath + "\\platform-tools\\adb.exe";
+
+                //check Android SDK path                
+                if (!File.Exists(ADBPath))
+                {
+                    MessageBox.Show("Android SDK Path wrong !!");
+
+                    //delete file
+                    sr.Close();
+                    File.Delete(configFilePath);
+                    return;
+                }
+
+                sr.Close();
+            }
         }
     }
 }

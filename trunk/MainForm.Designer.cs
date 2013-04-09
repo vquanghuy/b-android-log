@@ -36,9 +36,10 @@
             // 
             // btnConfig
             // 
-            this.btnConfig.Location = new System.Drawing.Point(690, 12);
+            this.btnConfig.Location = new System.Drawing.Point(659, 15);
+            this.btnConfig.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnConfig.Name = "btnConfig";
-            this.btnConfig.Size = new System.Drawing.Size(90, 30);
+            this.btnConfig.Size = new System.Drawing.Size(120, 37);
             this.btnConfig.TabIndex = 0;
             this.btnConfig.Text = "Config ...";
             this.btnConfig.UseVisualStyleBackColor = true;
@@ -46,9 +47,10 @@
             // 
             // btnRefesh
             // 
-            this.btnRefesh.Location = new System.Drawing.Point(202, 12);
+            this.btnRefesh.Location = new System.Drawing.Point(16, 15);
+            this.btnRefesh.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnRefesh.Name = "btnRefesh";
-            this.btnRefesh.Size = new System.Drawing.Size(90, 30);
+            this.btnRefesh.Size = new System.Drawing.Size(120, 37);
             this.btnRefesh.TabIndex = 1;
             this.btnRefesh.Text = "Refesh";
             this.btnRefesh.UseVisualStyleBackColor = true;
@@ -56,32 +58,37 @@
             // 
             // tbxOutput
             // 
-            this.tbxOutput.Location = new System.Drawing.Point(12, 64);
+            this.tbxOutput.Location = new System.Drawing.Point(16, 79);
+            this.tbxOutput.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.tbxOutput.Multiline = true;
             this.tbxOutput.Name = "tbxOutput";
-            this.tbxOutput.Size = new System.Drawing.Size(768, 497);
+            this.tbxOutput.Size = new System.Drawing.Size(763, 481);
             this.tbxOutput.TabIndex = 2;
             // 
             // btnGetLog
             // 
-            this.btnGetLog.Location = new System.Drawing.Point(434, 12);
+            this.btnGetLog.Location = new System.Drawing.Point(154, 15);
+            this.btnGetLog.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnGetLog.Name = "btnGetLog";
-            this.btnGetLog.Size = new System.Drawing.Size(90, 30);
+            this.btnGetLog.Size = new System.Drawing.Size(120, 37);
             this.btnGetLog.TabIndex = 3;
             this.btnGetLog.Text = "Get Log";
             this.btnGetLog.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
             this.Controls.Add(this.btnGetLog);
             this.Controls.Add(this.tbxOutput);
             this.Controls.Add(this.btnRefesh);
             this.Controls.Add(this.btnConfig);
+            this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "MainForm";
             this.Text = "BLog";
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

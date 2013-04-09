@@ -11,7 +11,7 @@ namespace BLog
 {
     public partial class ConfigForm : Form
     {
-        public String strADBPath = null;
+        public String AndroidSDKPath = null;
 
         public ConfigForm()
         {
@@ -21,7 +21,7 @@ namespace BLog
         private void btnChooseSDK_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog folderBrwDlg = new FolderBrowserDialog();
-            folderBrwDlg.SelectedPath = "c:\\";
+            folderBrwDlg.SelectedPath = AndroidSDKPath;
             folderBrwDlg.ShowNewFolderButton = false;
 
             if (folderBrwDlg.ShowDialog() == DialogResult.OK)
@@ -32,8 +32,8 @@ namespace BLog
 
         private void btnOK_Click(object sender, EventArgs e)
         {
-            strADBPath = txbSDKPath.Text + "\\platform-tools\\adb.exe";
-            if (System.IO.File.Exists(strADBPath))
+            AndroidSDKPath = txbSDKPath.Text;
+            if (System.IO.File.Exists(AndroidSDKPath + "\\platform-tools\\adb.exe"))
             {
                 this.DialogResult = DialogResult.OK;
                 this.Close();
@@ -42,6 +42,11 @@ namespace BLog
             {   
                 MessageBox.Show(this, "SDK Path not correct");
             }            
+        }
+
+        private void ConfigForm_Load(object sender, EventArgs e)
+        {
+            txbSDKPath.Text = AndroidSDKPath;
         }
     }
 }
