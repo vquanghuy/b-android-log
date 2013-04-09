@@ -44,10 +44,10 @@
             // 
             this.tabConfigPath.Controls.Add(this.tabPage1);
             this.tabConfigPath.Controls.Add(this.tabPage2);
-            this.tabConfigPath.Location = new System.Drawing.Point(12, 15);
+            this.tabConfigPath.Location = new System.Drawing.Point(14, 15);
             this.tabConfigPath.Name = "tabConfigPath";
             this.tabConfigPath.SelectedIndex = 0;
-            this.tabConfigPath.Size = new System.Drawing.Size(502, 317);
+            this.tabConfigPath.Size = new System.Drawing.Size(574, 317);
             this.tabConfigPath.TabIndex = 0;
             // 
             // tabPage1
@@ -58,7 +58,7 @@
             this.tabPage1.Location = new System.Drawing.Point(4, 25);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(494, 288);
+            this.tabPage1.Size = new System.Drawing.Size(566, 288);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Config Path";
             this.tabPage1.UseVisualStyleBackColor = true;
@@ -68,7 +68,7 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 25);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(771, 401);
+            this.tabPage2.Size = new System.Drawing.Size(566, 288);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "tabPage2";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -76,24 +76,24 @@
             // lblAndroidSDK
             // 
             this.lblAndroidSDK.AutoSize = true;
-            this.lblAndroidSDK.Location = new System.Drawing.Point(6, 14);
+            this.lblAndroidSDK.Location = new System.Drawing.Point(7, 14);
             this.lblAndroidSDK.Name = "lblAndroidSDK";
-            this.lblAndroidSDK.Size = new System.Drawing.Size(108, 16);
+            this.lblAndroidSDK.Size = new System.Drawing.Size(123, 16);
             this.lblAndroidSDK.TabIndex = 0;
             this.lblAndroidSDK.Text = "Android SDK Path";
             // 
             // txbSDKPath
             // 
-            this.txbSDKPath.Location = new System.Drawing.Point(157, 11);
+            this.txbSDKPath.Location = new System.Drawing.Point(179, 11);
             this.txbSDKPath.Name = "txbSDKPath";
-            this.txbSDKPath.Size = new System.Drawing.Size(234, 23);
+            this.txbSDKPath.Size = new System.Drawing.Size(267, 23);
             this.txbSDKPath.TabIndex = 1;
             // 
             // btnChooseSDK
             // 
-            this.btnChooseSDK.Location = new System.Drawing.Point(406, 11);
+            this.btnChooseSDK.Location = new System.Drawing.Point(464, 11);
             this.btnChooseSDK.Name = "btnChooseSDK";
-            this.btnChooseSDK.Size = new System.Drawing.Size(75, 23);
+            this.btnChooseSDK.Size = new System.Drawing.Size(86, 23);
             this.btnChooseSDK.TabIndex = 2;
             this.btnChooseSDK.Text = "Browser ...";
             this.btnChooseSDK.UseVisualStyleBackColor = true;
@@ -101,9 +101,9 @@
             // 
             // btnOK
             // 
-            this.btnOK.Location = new System.Drawing.Point(180, 338);
+            this.btnOK.Location = new System.Drawing.Point(206, 338);
             this.btnOK.Name = "btnOK";
-            this.btnOK.Size = new System.Drawing.Size(75, 23);
+            this.btnOK.Size = new System.Drawing.Size(86, 23);
             this.btnOK.TabIndex = 1;
             this.btnOK.Text = "OK";
             this.btnOK.UseVisualStyleBackColor = true;
@@ -112,27 +112,28 @@
             // btnCancel
             // 
             this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnCancel.Location = new System.Drawing.Point(272, 338);
+            this.btnCancel.Location = new System.Drawing.Point(311, 338);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 23);
+            this.btnCancel.Size = new System.Drawing.Size(86, 23);
             this.btnCancel.TabIndex = 1;
             this.btnCancel.Text = "Cancel";
             this.btnCancel.UseVisualStyleBackColor = true;
             // 
             // ConfigForm
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnCancel;
-            this.ClientSize = new System.Drawing.Size(527, 373);
+            this.ClientSize = new System.Drawing.Size(602, 373);
             this.Controls.Add(this.btnCancel);
             this.Controls.Add(this.btnOK);
             this.Controls.Add(this.tabConfigPath);
-            this.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ConfigForm";
             this.Text = "Config ...";
+            this.Load += new System.EventHandler(this.ConfigForm_Load);
             this.tabConfigPath.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
