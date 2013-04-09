@@ -58,7 +58,10 @@ namespace BLog
             ConfigForm wfConfigForm = new ConfigForm();
             wfConfigForm.StartPosition = FormStartPosition.CenterParent;
 
-            wfConfigForm.ShowDialog(this);
+            DialogResult dlgResult = wfConfigForm.ShowDialog(this);
+
+            if (dlgResult == DialogResult.OK)
+                MessageBox.Show("Config OK");
         }
     }
 }
