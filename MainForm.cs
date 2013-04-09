@@ -51,9 +51,14 @@ namespace BLog
 
         private void btnConfig_Click(object sender, EventArgs e)
         {
-            String str = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            //String str = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
 
-            MessageBox.Show(str);
+            //MessageBox.Show(str);
+
+            ConfigForm wfConfigForm = new ConfigForm();
+            wfConfigForm.StartPosition = FormStartPosition.CenterParent;
+
+            wfConfigForm.ShowDialog(this);
         }
     }
 }
