@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.IO;
+using System.Threading;
 
 namespace BLog
 {
@@ -116,6 +117,68 @@ namespace BLog
                 }
 
                 sr.Close();
+            }
+        }
+
+        private void btnGetLog_Click(object sender, EventArgs e)
+        {
+            if (cbListDevices.Text == "")
+            {
+                MessageBox.Show("Must get devices first");
+                return;
+            }
+
+            Thread tid = new Thread(GetLogJob);
+            tid.Start(this);
+        }
+
+        public void SetRichTextBox(String text)
+        {
+            if (InvokeRequired)
+            {
+                this.Invoke((MethodInvoker)delegate { SetRichTextBox(text); });
+                return;
+            }
+
+            rtbOutput.Text += text + '\n';
+            rtbOutput.Refresh();
+        }
+
+        //function to get log
+        public static void GetLogJob(Object parentForm)
+        {
+            try
+            {
+                MainForm mainForm = (MainForm)parentForm;
+
+                //" -s " + cbListDevices.SelectedText + 
+                String command = " logcat";
+                ProcessStartInfo procStartInfo = new ProcessStartInfo(mainForm.ADBPath, command);
+
+                procStartInfo.RedirectStandardOutput = true;
+                procStartInfo.UseShellExecute = false;
+                procStartInfo.CreateNoWindow = true;
+
+                Process proc = new Process();
+                proc.StartInfo = procStartInfo;
+                proc.Start();                           
+
+                StreamReader sr = proc.StandardOutput;
+
+                while (!sr.EndOfStream)
+                {
+                    String s = sr.ReadLine();
+                    if (s != "")
+                    {
+                        mainForm.SetRichTextBox(s);
+                    }                   
+                }
+                
+            }
+            catch (Exception objException)
+            {
+                // Log the exception
+                MessageBox.Show(objException.StackTrace);
             }
         }
     }
