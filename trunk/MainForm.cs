@@ -24,31 +24,41 @@ namespace BLog
 
         //config info
         private String AndroidSDKPath = null;
-        private String ADBPath = null;
+        private String ADBPath = null;        
 
-        private void btnRefesh_Click(object sender, EventArgs e)
+        private void btnGetDevices_Click(object sender, EventArgs e)
         {
             try
             {
-                String command = "adb devices";
-                ProcessStartInfo procStartInfo = new ProcessStartInfo("cmd", "/c " + command);
+                String command = " devices";
+                ProcessStartInfo procStartInfo = new ProcessStartInfo(ADBPath, command);
 
                 // The following commands are needed to redirect the standard output.
                 // This means that it will be redirected to the Process.StandardOutput StreamReader.
                 procStartInfo.RedirectStandardOutput = true;
-                procStartInfo.UseShellExecute = false;
-                // Do not create the black window.
+                procStartInfo.UseShellExecute = false;                
                 procStartInfo.CreateNoWindow = true;
+
                 // Now we create a process, assign its ProcessStartInfo and start it
-                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                Process proc = new Process();
                 proc.StartInfo = procStartInfo;
                 proc.Start();
 
                 // Get the output into a string
-                string result = proc.StandardOutput.ReadToEnd();
+                string result = proc.StandardOutput.ReadToEnd();                
 
-                // Display the command output.
-                MessageBox.Show(result);
+                // Modify combo box
+                cbListDevices.Items.Clear();
+
+                String []listDevices = result.Split('\n');
+
+                for (int i = 1; i < listDevices.Length; i++)
+                {
+                    if (listDevices[i] != "" && listDevices[i].Length > 1)
+                        cbListDevices.Items.Add(listDevices[i].Split('\t')[0]);
+                }
+
+                cbListDevices.SelectedIndex = 0;
             }
             catch (Exception objException)
             {
