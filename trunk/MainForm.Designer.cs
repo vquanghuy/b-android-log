@@ -30,9 +30,9 @@
         {
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
-            this.tbxOutput = new System.Windows.Forms.TextBox();
             this.btnGetLog = new System.Windows.Forms.Button();
             this.cbListDevices = new System.Windows.Forms.ComboBox();
+            this.rtbOutput = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // btnConfig
@@ -57,15 +57,6 @@
             this.btnGetDevices.UseVisualStyleBackColor = true;
             this.btnGetDevices.Click += new System.EventHandler(this.btnGetDevices_Click);
             // 
-            // tbxOutput
-            // 
-            this.tbxOutput.Location = new System.Drawing.Point(16, 79);
-            this.tbxOutput.Margin = new System.Windows.Forms.Padding(4);
-            this.tbxOutput.Multiline = true;
-            this.tbxOutput.Name = "tbxOutput";
-            this.tbxOutput.Size = new System.Drawing.Size(763, 481);
-            this.tbxOutput.TabIndex = 2;
-            // 
             // btnGetLog
             // 
             this.btnGetLog.Location = new System.Drawing.Point(451, 15);
@@ -75,24 +66,34 @@
             this.btnGetLog.TabIndex = 3;
             this.btnGetLog.Text = "Get Log";
             this.btnGetLog.UseVisualStyleBackColor = true;
+            this.btnGetLog.Click += new System.EventHandler(this.btnGetLog_Click);
             // 
             // cbListDevices
             // 
             this.cbListDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbListDevices.FormattingEnabled = true;
-            this.cbListDevices.Location = new System.Drawing.Point(16, 22);
+            this.cbListDevices.Location = new System.Drawing.Point(11, 22);
             this.cbListDevices.Name = "cbListDevices";
             this.cbListDevices.Size = new System.Drawing.Size(300, 24);
             this.cbListDevices.TabIndex = 4;
+            // 
+            // rtbOutput
+            // 
+            this.rtbOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rtbOutput.Location = new System.Drawing.Point(11, 71);
+            this.rtbOutput.Name = "rtbOutput";
+            this.rtbOutput.Size = new System.Drawing.Size(768, 490);
+            this.rtbOutput.TabIndex = 5;
+            this.rtbOutput.Text = "";
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
+            this.Controls.Add(this.rtbOutput);
             this.Controls.Add(this.cbListDevices);
             this.Controls.Add(this.btnGetLog);
-            this.Controls.Add(this.tbxOutput);
             this.Controls.Add(this.btnGetDevices);
             this.Controls.Add(this.btnConfig);
             this.Font = new System.Drawing.Font("Verdana", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -101,7 +102,6 @@
             this.Text = "BLog";
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -109,9 +109,9 @@
 
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnGetDevices;
-        private System.Windows.Forms.TextBox tbxOutput;
         private System.Windows.Forms.Button btnGetLog;
         private System.Windows.Forms.ComboBox cbListDevices;
+        private System.Windows.Forms.RichTextBox rtbOutput;
     }
 }
 
