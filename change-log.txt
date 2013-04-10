@@ -1,9 +1,14 @@
 ================================================
+BLog - version 0.0.2
+================================================
+- Auto-Scroll feature
+
+================================================
 BLog - version 0.0.1 @Apr 10, 2013
 ================================================
-- Version dau tien
-- Thuc hien duoc cac chuc nang co ban
-	+ Lay duoc device
-	+ Lay log theo device
-	+ Loc log theo mau sac
-- Co chuc nang luu lai config
+- First version
+- Do some basic function
+	+ Get running devices
+	+ Get log by devices
+	+ Filter log type by color
+- Save config to a file
