@@ -1,0 +1,9 @@
+================================================
+BLog - version 0.0.1 @Apr 10, 2013
+================================================
+- Version dau tien
+- Thuc hien duoc cac chuc nang co ban
+	+ Lay duoc device
+	+ Lay log theo device
+	+ Loc log theo mau sac
+- Co chuc nang luu lai config
