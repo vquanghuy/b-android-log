@@ -100,8 +100,10 @@ namespace BLog
                 return;
             }
 
-            logSyncThread = new Thread(GetLogJob);
-            logSyncThread.Start(this);
+            //logSyncThread = new Thread(GetLogJob);
+            //logSyncThread.Start(this);
+
+            GetLog();
         }
 
         private void MainForm_Leave(object sender, EventArgs e)
@@ -163,10 +165,50 @@ namespace BLog
                 return;
             }
 
-            ctxbMainOut.Text += text + '\n';
+            ctxbMainOut.AppendText(text);
+            ctxbMainOut.AppendText(Environment.NewLine);
         }
 
         //function to get log
+        public void GetLog()
+        {
+            try
+            {
+                //clean text box
+                ctxbMainOut.Clear();
+
+                //" -s " + cbListDevices.SelectedText + 
+                String command = " logcat";
+                ProcessStartInfo procStartInfo = new ProcessStartInfo(ADBPath, command);
+
+                procStartInfo.RedirectStandardOutput = true;
+                procStartInfo.UseShellExecute = false;
+                procStartInfo.CreateNoWindow = true;
+
+                Process proc = new Process();
+                proc.StartInfo = procStartInfo;
+                proc.OutputDataReceived += ctxb_DataReceived;
+                proc.EnableRaisingEvents = true;
+
+                proc.Start();
+                proc.BeginOutputReadLine();
+            }
+            catch (Exception objException)
+            {
+                // Log the exception
+                MessageBox.Show(objException.StackTrace);
+            }
+        }
+
+        public void ctxb_DataReceived(object sender, DataReceivedEventArgs e)
+        {
+            SetRichTextBox(e.Data.ToString());
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="parentForm"></param>
         public static void GetLogJob(Object parentForm)
         {
             try
@@ -203,6 +245,6 @@ namespace BLog
                 // Log the exception
                 MessageBox.Show(objException.StackTrace);
             }
-        }        
+        }       
     }
 }

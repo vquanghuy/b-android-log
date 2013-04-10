@@ -90,6 +90,7 @@
             this.ctxbMainOut.Location = new System.Drawing.Point(13, 128);
             this.ctxbMainOut.Name = "ctxbMainOut";
             this.ctxbMainOut.Paddings = new System.Windows.Forms.Padding(0);
+            this.ctxbMainOut.ReadOnly = true;
             this.ctxbMainOut.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.ctxbMainOut.Size = new System.Drawing.Size(766, 433);
             this.ctxbMainOut.TabIndex = 6;
