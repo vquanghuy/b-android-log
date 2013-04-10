@@ -19,13 +19,13 @@ namespace BLog
             InitializeComponent();
         }
 
-        private const String buildVersion = "0.0.1";
+        private const String buildVersion = "0.0.2";
 
         //config file name and path
         private const String configFile = "b_log.conf";
         private String configFilePath = null;
 
-        //config info
+        //config path info
         private String AndroidSDKPath = null;
         private String ADBPath = null;    
     
@@ -36,6 +36,9 @@ namespace BLog
         private FastColoredTextBoxNS.TextStyle debugStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Blue), new SolidBrush(Color.Transparent), FontStyle.Regular);
         private FastColoredTextBoxNS.TextStyle warningStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Orange), new SolidBrush(Color.Transparent), FontStyle.Regular);
         private FastColoredTextBoxNS.TextStyle errorStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Red), new SolidBrush(Color.Transparent), FontStyle.Regular);
+
+        //application config
+        private bool bAutoScroll = true;
 
         /// <summary>
         /// Define all event here
@@ -110,8 +113,7 @@ namespace BLog
                 return;
             }
 
-            //logSyncThread = new Thread(GetLogJob);
-            //logSyncThread.Start(this);
+            bAutoScroll = true;
 
             GetLog();
         }
@@ -119,6 +121,11 @@ namespace BLog
         private void MainForm_Leave(object sender, EventArgs e)
         {
             
+        }
+
+        private void ctxbMainOut_MouseClick(object sender, MouseEventArgs e)
+        {
+            bAutoScroll = false;
         }
 
         /// <summary>
@@ -202,7 +209,10 @@ namespace BLog
             }
 
             ctxbMainOut.AppendText(text, textStyle);
-            ctxbMainOut.AppendText(Environment.NewLine);           
+            ctxbMainOut.AppendText(Environment.NewLine);
+
+            if (bAutoScroll)
+                ctxbMainOut.GoEnd();
         }
 
         //function to get log
@@ -240,6 +250,17 @@ namespace BLog
         public void ctxb_DataReceived(object sender, DataReceivedEventArgs e)
         {
             SetRichTextBox(e.Data.ToString());
-        }      
+        }
+
+        private void cbAutoScroll_CheckedChanged(object sender, EventArgs e)
+        {
+            if (cbAutoScroll.Checked == true)
+            {
+                bAutoScroll = true;
+                ctxbMainOut.GoEnd();
+            }
+            else
+                bAutoScroll = false;
+        }              
     }
 }

@@ -32,13 +32,14 @@
             this.btnGetDevices = new System.Windows.Forms.Button();
             this.btnGetLog = new System.Windows.Forms.Button();
             this.lsbListDevices = new System.Windows.Forms.ListBox();
+            this.cbAutoScroll = new System.Windows.Forms.CheckBox();
             this.ctxbMainOut = new FastColoredTextBoxNS.FastColoredTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ctxbMainOut)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConfig
             // 
-            this.btnConfig.Location = new System.Drawing.Point(659, 15);
+            this.btnConfig.Location = new System.Drawing.Point(662, 15);
             this.btnConfig.Margin = new System.Windows.Forms.Padding(4);
             this.btnConfig.Name = "btnConfig";
             this.btnConfig.Size = new System.Drawing.Size(120, 37);
@@ -49,7 +50,7 @@
             // 
             // btnGetDevices
             // 
-            this.btnGetDevices.Location = new System.Drawing.Point(267, 13);
+            this.btnGetDevices.Location = new System.Drawing.Point(251, 15);
             this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetDevices.Name = "btnGetDevices";
             this.btnGetDevices.Size = new System.Drawing.Size(120, 37);
@@ -60,7 +61,7 @@
             // 
             // btnGetLog
             // 
-            this.btnGetLog.Location = new System.Drawing.Point(451, 15);
+            this.btnGetLog.Location = new System.Drawing.Point(379, 15);
             this.btnGetLog.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetLog.Name = "btnGetLog";
             this.btnGetLog.Size = new System.Drawing.Size(120, 37);
@@ -78,16 +79,28 @@
             this.lsbListDevices.Size = new System.Drawing.Size(231, 100);
             this.lsbListDevices.TabIndex = 5;
             // 
+            // cbAutoScroll
+            // 
+            this.cbAutoScroll.AutoSize = true;
+            this.cbAutoScroll.Location = new System.Drawing.Point(251, 95);
+            this.cbAutoScroll.Name = "cbAutoScroll";
+            this.cbAutoScroll.Size = new System.Drawing.Size(111, 20);
+            this.cbAutoScroll.TabIndex = 7;
+            this.cbAutoScroll.Text = "Scroll to end";
+            this.cbAutoScroll.UseVisualStyleBackColor = true;
+            this.cbAutoScroll.CheckedChanged += new System.EventHandler(this.cbAutoScroll_CheckedChanged);
+            // 
             // ctxbMainOut
             // 
             this.ctxbMainOut.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.ctxbMainOut.AutoSize = true;
             this.ctxbMainOut.BackBrush = null;
             this.ctxbMainOut.CharHeight = 14;
             this.ctxbMainOut.CharWidth = 8;
             this.ctxbMainOut.Cursor = System.Windows.Forms.Cursors.IBeam;
             this.ctxbMainOut.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
             this.ctxbMainOut.IsReplaceMode = false;
-            this.ctxbMainOut.Location = new System.Drawing.Point(13, 128);
+            this.ctxbMainOut.Location = new System.Drawing.Point(13, 119);
             this.ctxbMainOut.Name = "ctxbMainOut";
             this.ctxbMainOut.Paddings = new System.Windows.Forms.Padding(0);
             this.ctxbMainOut.ReadOnly = true;
@@ -95,12 +108,14 @@
             this.ctxbMainOut.Size = new System.Drawing.Size(766, 433);
             this.ctxbMainOut.TabIndex = 6;
             this.ctxbMainOut.Zoom = 100;
+            this.ctxbMainOut.MouseClick += new System.Windows.Forms.MouseEventHandler(this.ctxbMainOut_MouseClick);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(792, 573);
+            this.ClientSize = new System.Drawing.Size(795, 565);
+            this.Controls.Add(this.cbAutoScroll);
             this.Controls.Add(this.ctxbMainOut);
             this.Controls.Add(this.lsbListDevices);
             this.Controls.Add(this.btnGetLog);
@@ -114,6 +129,7 @@
             this.Leave += new System.EventHandler(this.MainForm_Leave);
             ((System.ComponentModel.ISupportInitialize)(this.ctxbMainOut)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -124,6 +140,7 @@
         private System.Windows.Forms.Button btnGetLog;
         private System.Windows.Forms.ListBox lsbListDevices;
         private FastColoredTextBoxNS.FastColoredTextBox ctxbMainOut;
+        private System.Windows.Forms.CheckBox cbAutoScroll;
     }
 }
 
