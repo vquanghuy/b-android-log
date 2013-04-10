@@ -11,7 +11,8 @@
     <RootNamespace>BLog</RootNamespace>
     <AssemblyName>BLog</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -36,6 +37,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,6 +54,61 @@
     <Compile Include="ConfigForm.Designer.cs">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\AutocompleteItem.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\AutocompleteMenu.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\Bookmarks.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Char.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\CommandManager.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Commands.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\ExportToHTML.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\ExportToRTF.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\FastColoredTextBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\FastColoredTextBox_MiddleClickScrolling.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\FileTextSource.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\FindForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\FindForm.designer.cs">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\GoToForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\GoToForm.designer.cs">
+      <DependentUpon>GoToForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\Hints.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Hotkeys.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\HotkeysEditorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\HotkeysEditorForm.Designer.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\LimitedStack.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Line.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\LinesAccessor.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\MacrosManager.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Place.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\PlatformType.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Range.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\ReplaceForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\ReplaceForm.Designer.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\Style.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\SyntaxDescriptor.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\SyntaxHighlighter.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\TextSource.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\TypeDescriptor.cs" />
+    <Compile Include="CustomComponent\FastColoredTextBox\UnfocusablePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CustomComponent\FastColoredTextBox\VisualMarker.cs" />
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -63,6 +120,17 @@
     <EmbeddedResource Include="ConfigForm.resx">
       <DependentUpon>ConfigForm.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="CustomComponent\FastColoredTextBox\FastColoredTextBox.resx">
+      <DependentUpon>FastColoredTextBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomComponent\FastColoredTextBox\FindForm.resx">
+      <DependentUpon>FindForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomComponent\FastColoredTextBox\GoToForm.resx">
+      <DependentUpon>GoToForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CustomComponent\FastColoredTextBox\HotkeysEditorForm.resx" />
+    <EmbeddedResource Include="CustomComponent\FastColoredTextBox\ReplaceForm.resx" />
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -74,7 +142,9 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -85,6 +155,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

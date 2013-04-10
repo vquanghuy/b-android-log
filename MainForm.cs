@@ -25,48 +25,20 @@ namespace BLog
 
         //config info
         private String AndroidSDKPath = null;
-        private String ADBPath = null;        
+        private String ADBPath = null;    
+    
+        //thread to sync log
+        private Thread logSyncThread = null;
 
+        /// <summary>
+        /// Define all event here
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void btnGetDevices_Click(object sender, EventArgs e)
         {
-            try
-            {
-                String command = " devices";
-                ProcessStartInfo procStartInfo = new ProcessStartInfo(ADBPath, command);
-
-                // The following commands are needed to redirect the standard output.
-                // This means that it will be redirected to the Process.StandardOutput StreamReader.
-                procStartInfo.RedirectStandardOutput = true;
-                procStartInfo.UseShellExecute = false;                
-                procStartInfo.CreateNoWindow = true;
-
-                // Now we create a process, assign its ProcessStartInfo and start it
-                Process proc = new Process();
-                proc.StartInfo = procStartInfo;
-                proc.Start();
-
-                // Get the output into a string
-                string result = proc.StandardOutput.ReadToEnd();                
-
-                // Modify combo box
-                cbListDevices.Items.Clear();
-
-                String []listDevices = result.Split('\n');
-
-                for (int i = 1; i < listDevices.Length; i++)
-                {
-                    if (listDevices[i] != "" && listDevices[i].Length > 1)
-                        cbListDevices.Items.Add(listDevices[i].Split('\t')[0]);
-                }
-
-                cbListDevices.SelectedIndex = 0;
-            }
-            catch (Exception objException)
-            {
-                // Log the exception
-                MessageBox.Show(objException.StackTrace);
-            }
-
+            GetDevices();
         }
 
         private void btnConfig_Click(object sender, EventArgs e)
@@ -122,14 +94,65 @@ namespace BLog
 
         private void btnGetLog_Click(object sender, EventArgs e)
         {
-            if (cbListDevices.Text == "")
+            if (lsbListDevices.Items.Count < 1)
             {
                 MessageBox.Show("Must get devices first");
                 return;
             }
 
-            Thread tid = new Thread(GetLogJob);
-            tid.Start(this);
+            logSyncThread = new Thread(GetLogJob);
+            logSyncThread.Start(this);
+        }
+
+        private void MainForm_Leave(object sender, EventArgs e)
+        {
+            
+        }
+
+        /// <summary>
+        /// Define all function here
+        /// </summary>
+        /// <param name="text"></param>
+
+        public void GetDevices()
+        {
+            try
+            {
+                String command = " devices";
+                ProcessStartInfo procStartInfo = new ProcessStartInfo(ADBPath, command);
+
+                // The following commands are needed to redirect the standard output.
+                // This means that it will be redirected to the Process.StandardOutput StreamReader.
+                procStartInfo.RedirectStandardOutput = true;
+                procStartInfo.UseShellExecute = false;
+                procStartInfo.CreateNoWindow = true;
+
+                // Now we create a process, assign its ProcessStartInfo and start it
+                Process proc = new Process();
+                proc.StartInfo = procStartInfo;
+                proc.Start();
+
+                // Get the output into a string
+                string result = proc.StandardOutput.ReadToEnd();
+
+                // Modify combo box
+                lsbListDevices.Items.Clear();
+
+                String[] listDevices = result.Split('\n');
+
+                for (int i = 1; i < listDevices.Length; i++)
+                {
+                    if (listDevices[i].Length > 1 && listDevices[i][0] != '*')
+                    {                        
+                        lsbListDevices.Items.Add(listDevices[i].Split('\t')[0]);
+                    }
+                }                
+            }
+            catch (Exception objException)
+            {
+                // Log the exception
+                MessageBox.Show(objException.StackTrace);
+            }
         }
 
         public void SetRichTextBox(String text)
@@ -140,8 +163,7 @@ namespace BLog
                 return;
             }
 
-            rtbOutput.Text += text + '\n';
-            rtbOutput.Refresh();
+            ctxbMainOut.Text += text + '\n';
         }
 
         //function to get log
@@ -161,7 +183,7 @@ namespace BLog
 
                 Process proc = new Process();
                 proc.StartInfo = procStartInfo;
-                proc.Start();                           
+                proc.Start();
 
                 StreamReader sr = proc.StandardOutput;
 
@@ -171,8 +193,9 @@ namespace BLog
                     if (s != "")
                     {
                         mainForm.SetRichTextBox(s);
-                    }                   
+                    }
                 }
+                //mainForm.SetRichTextBox(sr.ReadToEnd());
                 
             }
             catch (Exception objException)
@@ -180,6 +203,6 @@ namespace BLog
                 // Log the exception
                 MessageBox.Show(objException.StackTrace);
             }
-        }
+        }        
     }
 }
