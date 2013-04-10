@@ -31,8 +31,9 @@
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
             this.btnGetLog = new System.Windows.Forms.Button();
-            this.cbListDevices = new System.Windows.Forms.ComboBox();
-            this.rtbOutput = new System.Windows.Forms.RichTextBox();
+            this.lsbListDevices = new System.Windows.Forms.ListBox();
+            this.ctxbMainOut = new FastColoredTextBoxNS.FastColoredTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ctxbMainOut)).BeginInit();
             this.SuspendLayout();
             // 
             // btnConfig
@@ -48,7 +49,7 @@
             // 
             // btnGetDevices
             // 
-            this.btnGetDevices.Location = new System.Drawing.Point(323, 15);
+            this.btnGetDevices.Location = new System.Drawing.Point(267, 13);
             this.btnGetDevices.Margin = new System.Windows.Forms.Padding(4);
             this.btnGetDevices.Name = "btnGetDevices";
             this.btnGetDevices.Size = new System.Drawing.Size(120, 37);
@@ -68,31 +69,39 @@
             this.btnGetLog.UseVisualStyleBackColor = true;
             this.btnGetLog.Click += new System.EventHandler(this.btnGetLog_Click);
             // 
-            // cbListDevices
+            // lsbListDevices
             // 
-            this.cbListDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cbListDevices.FormattingEnabled = true;
-            this.cbListDevices.Location = new System.Drawing.Point(11, 22);
-            this.cbListDevices.Name = "cbListDevices";
-            this.cbListDevices.Size = new System.Drawing.Size(300, 24);
-            this.cbListDevices.TabIndex = 4;
+            this.lsbListDevices.FormattingEnabled = true;
+            this.lsbListDevices.ItemHeight = 16;
+            this.lsbListDevices.Location = new System.Drawing.Point(13, 13);
+            this.lsbListDevices.Name = "lsbListDevices";
+            this.lsbListDevices.Size = new System.Drawing.Size(231, 100);
+            this.lsbListDevices.TabIndex = 5;
             // 
-            // rtbOutput
+            // ctxbMainOut
             // 
-            this.rtbOutput.Font = new System.Drawing.Font("Consolas", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rtbOutput.Location = new System.Drawing.Point(11, 71);
-            this.rtbOutput.Name = "rtbOutput";
-            this.rtbOutput.Size = new System.Drawing.Size(768, 490);
-            this.rtbOutput.TabIndex = 5;
-            this.rtbOutput.Text = "";
+            this.ctxbMainOut.AutoScrollMinSize = new System.Drawing.Size(27, 14);
+            this.ctxbMainOut.BackBrush = null;
+            this.ctxbMainOut.CharHeight = 14;
+            this.ctxbMainOut.CharWidth = 8;
+            this.ctxbMainOut.Cursor = System.Windows.Forms.Cursors.IBeam;
+            this.ctxbMainOut.DisabledColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))), ((int)(((byte)(180)))));
+            this.ctxbMainOut.IsReplaceMode = false;
+            this.ctxbMainOut.Location = new System.Drawing.Point(13, 128);
+            this.ctxbMainOut.Name = "ctxbMainOut";
+            this.ctxbMainOut.Paddings = new System.Windows.Forms.Padding(0);
+            this.ctxbMainOut.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
+            this.ctxbMainOut.Size = new System.Drawing.Size(766, 433);
+            this.ctxbMainOut.TabIndex = 6;
+            this.ctxbMainOut.Zoom = 100;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(792, 573);
-            this.Controls.Add(this.rtbOutput);
-            this.Controls.Add(this.cbListDevices);
+            this.Controls.Add(this.ctxbMainOut);
+            this.Controls.Add(this.lsbListDevices);
             this.Controls.Add(this.btnGetLog);
             this.Controls.Add(this.btnGetDevices);
             this.Controls.Add(this.btnConfig);
@@ -101,6 +110,8 @@
             this.Name = "MainForm";
             this.Text = "BLog";
             this.Load += new System.EventHandler(this.MainForm_Load);
+            this.Leave += new System.EventHandler(this.MainForm_Leave);
+            ((System.ComponentModel.ISupportInitialize)(this.ctxbMainOut)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -110,8 +121,8 @@
         private System.Windows.Forms.Button btnConfig;
         private System.Windows.Forms.Button btnGetDevices;
         private System.Windows.Forms.Button btnGetLog;
-        private System.Windows.Forms.ComboBox cbListDevices;
-        private System.Windows.Forms.RichTextBox rtbOutput;
+        private System.Windows.Forms.ListBox lsbListDevices;
+        private FastColoredTextBoxNS.FastColoredTextBox ctxbMainOut;
     }
 }
 
