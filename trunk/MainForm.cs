@@ -27,8 +27,13 @@ namespace BLog
         private String AndroidSDKPath = null;
         private String ADBPath = null;    
     
-        //thread to sync log
-        private Thread logSyncThread = null;
+        //log style
+        private FastColoredTextBoxNS.TextStyle defaultStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Violet), new SolidBrush(Color.Transparent), FontStyle.Regular);
+        private FastColoredTextBoxNS.TextStyle verboseStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Black), new SolidBrush(Color.Transparent), FontStyle.Regular);
+        private FastColoredTextBoxNS.TextStyle infoStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Green), new SolidBrush(Color.Transparent), FontStyle.Regular);        
+        private FastColoredTextBoxNS.TextStyle debugStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Blue), new SolidBrush(Color.Transparent), FontStyle.Regular);
+        private FastColoredTextBoxNS.TextStyle warningStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Orange), new SolidBrush(Color.Transparent), FontStyle.Regular);
+        private FastColoredTextBoxNS.TextStyle errorStyle = new FastColoredTextBoxNS.TextStyle(new SolidBrush(Color.Red), new SolidBrush(Color.Transparent), FontStyle.Regular);
 
         /// <summary>
         /// Define all event here
@@ -148,7 +153,11 @@ namespace BLog
                     {                        
                         lsbListDevices.Items.Add(listDevices[i].Split('\t')[0]);
                     }
-                }                
+                }
+                
+                //set selected item
+                lsbListDevices.SetSelected(0, true);
+
             }
             catch (Exception objException)
             {
@@ -167,8 +176,27 @@ namespace BLog
                 this.Invoke((MethodInvoker)delegate { SetRichTextBox(text); });
                 return;
             }
-            
-            ctxbMainOut.AppendText(text);
+
+            //ctxbMainOut.SelectionColor = Color.Blue;
+            char logType = text[0];
+
+            FastColoredTextBoxNS.Style textStyle = defaultStyle;
+
+            switch (logType)
+            {
+                case 'V': textStyle = verboseStyle;
+                    break;
+                case 'I': textStyle = infoStyle;
+                    break;
+                case 'D': textStyle = debugStyle;
+                    break;
+                case 'W': textStyle = warningStyle;
+                    break;
+                case 'E': textStyle = errorStyle;
+                    break;            
+            }
+
+            ctxbMainOut.AppendText(text, textStyle);
             ctxbMainOut.AppendText(Environment.NewLine);           
         }
 
@@ -180,8 +208,9 @@ namespace BLog
                 //clean text box
                 ctxbMainOut.Clear();
 
-                //" -s " + cbListDevices.SelectedText + 
-                String command = " logcat";
+                //" -s " + lsbListDevices.SelectedValue + 
+                //MessageBox.Show(lsbListDevices.SelectedItem.ToString());
+                String command = " -s " + lsbListDevices.SelectedItem.ToString() + " logcat -v brief";
                 ProcessStartInfo procStartInfo = new ProcessStartInfo(ADBPath, command);
 
                 procStartInfo.RedirectStandardOutput = true;
@@ -206,48 +235,6 @@ namespace BLog
         public void ctxb_DataReceived(object sender, DataReceivedEventArgs e)
         {
             SetRichTextBox(e.Data.ToString());
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="parentForm"></param>
-        public static void GetLogJob(Object parentForm)
-        {
-            try
-            {
-                MainForm mainForm = (MainForm)parentForm;
-
-                //" -s " + cbListDevices.SelectedText + 
-                String command = " logcat";
-                ProcessStartInfo procStartInfo = new ProcessStartInfo(mainForm.ADBPath, command);
-
-                procStartInfo.RedirectStandardOutput = true;
-                procStartInfo.UseShellExecute = false;
-                procStartInfo.CreateNoWindow = true;
-
-                Process proc = new Process();
-                proc.StartInfo = procStartInfo;
-                proc.Start();
-
-                StreamReader sr = proc.StandardOutput;
-
-                while (!sr.EndOfStream)
-                {
-                    String s = sr.ReadLine();
-                    if (s != "")
-                    {
-                        mainForm.SetRichTextBox(s);
-                    }
-                }
-                //mainForm.SetRichTextBox(sr.ReadToEnd());
-                
-            }
-            catch (Exception objException)
-            {
-                // Log the exception
-                MessageBox.Show(objException.StackTrace);
-            }
-        }       
+        }      
     }
 }
