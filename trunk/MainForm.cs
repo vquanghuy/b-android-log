@@ -19,6 +19,8 @@ namespace BLog
             InitializeComponent();
         }
 
+        private const String buildVersion = "0.0.1";
+
         //config file name and path
         private const String configFile = "b_log.conf";
         private String configFilePath = null;
@@ -71,6 +73,9 @@ namespace BLog
 
         private void MainForm_Load(object sender, EventArgs e)
         {
+            //modify title
+            this.Text += " - version " + buildVersion;
+
             //load default config file
             configFilePath = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData) + "\\" + configFile;
 
