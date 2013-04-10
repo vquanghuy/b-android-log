@@ -159,14 +159,17 @@ namespace BLog
 
         public void SetRichTextBox(String text)
         {
+            if (text.Length <= 1)
+                return;
+
             if (InvokeRequired)
             {
                 this.Invoke((MethodInvoker)delegate { SetRichTextBox(text); });
                 return;
             }
-
+            
             ctxbMainOut.AppendText(text);
-            ctxbMainOut.AppendText(Environment.NewLine);
+            ctxbMainOut.AppendText(Environment.NewLine);           
         }
 
         //function to get log
