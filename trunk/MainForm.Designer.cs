@@ -28,11 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.btnConfig = new System.Windows.Forms.Button();
             this.btnGetDevices = new System.Windows.Forms.Button();
             this.btnGetLog = new System.Windows.Forms.Button();
             this.lsbListDevices = new System.Windows.Forms.ListBox();
             this.cbAutoScroll = new System.Windows.Forms.CheckBox();
+            this.tmUpdateLog = new System.Windows.Forms.Timer(this.components);
             this.ctxbMainOut = new FastColoredTextBoxNS.FastColoredTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.ctxbMainOut)).BeginInit();
             this.SuspendLayout();
@@ -90,6 +92,11 @@
             this.cbAutoScroll.UseVisualStyleBackColor = true;
             this.cbAutoScroll.CheckedChanged += new System.EventHandler(this.cbAutoScroll_CheckedChanged);
             // 
+            // tmUpdateLog
+            // 
+            this.tmUpdateLog.Interval = 10;
+            this.tmUpdateLog.Tick += new System.EventHandler(this.tmUpdateLog_Tick);
+            // 
             // ctxbMainOut
             // 
             this.ctxbMainOut.AutoScrollMinSize = new System.Drawing.Size(27, 14);
@@ -141,6 +148,7 @@
         private System.Windows.Forms.ListBox lsbListDevices;
         private FastColoredTextBoxNS.FastColoredTextBox ctxbMainOut;
         private System.Windows.Forms.CheckBox cbAutoScroll;
+        private System.Windows.Forms.Timer tmUpdateLog;
     }
 }
 
