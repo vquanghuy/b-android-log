@@ -2,6 +2,7 @@
 BLog - version 0.0.2
 ================================================
 - Auto-Scroll feature
+- Improve performance
 
 ================================================
 BLog - version 0.0.1 @Apr 10, 2013
