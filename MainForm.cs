@@ -19,7 +19,12 @@ namespace BLog
             InitializeComponent();
         }
 
+        /// <summary>
+        /// All global variable define here
+        /// </summary>
         private const String buildVersion = "0.0.2";
+
+        private static Mutex mutex = new Mutex();
 
         //config file name and path
         private const String configFile = "b_log.conf";
@@ -39,6 +44,8 @@ namespace BLog
 
         //application config
         private bool bAutoScroll = true;
+
+        private Queue<String> qLogBuffer = new Queue<String>();
 
         /// <summary>
         /// Define all event here
@@ -103,6 +110,9 @@ namespace BLog
 
                 sr.Close();
             }
+
+            //clean buffer queue
+            qLogBuffer.Clear();
         }
 
         private void btnGetLog_Click(object sender, EventArgs e)
@@ -115,7 +125,44 @@ namespace BLog
 
             bAutoScroll = true;
 
+            qLogBuffer.Clear();
+            tmUpdateLog.Enabled = true;
+
             GetLog();
+        }
+
+        private void tmUpdateLog_Tick(object sender, EventArgs e)
+        {
+            mutex.WaitOne();    //begin critical zone
+            int count = 0;            
+            String strData;
+
+            while (count < 100 && qLogBuffer.Count > 0)
+            {
+                strData = qLogBuffer.Dequeue();                
+                char logType = strData[0];
+
+                FastColoredTextBoxNS.Style textStyle = defaultStyle;
+
+                switch (logType)
+                {
+                    case 'V': textStyle = verboseStyle;
+                        break;
+                    case 'I': textStyle = infoStyle;
+                        break;
+                    case 'D': textStyle = debugStyle;
+                        break;
+                    case 'W': textStyle = warningStyle;
+                        break;
+                    case 'E': textStyle = errorStyle;
+                        break;
+                }
+                ctxbMainOut.AppendText(strData, textStyle);
+
+                if (bAutoScroll)
+                    ctxbMainOut.GoEnd();
+            }
+            mutex.ReleaseMutex(); //end critical zone
         }
 
         private void MainForm_Leave(object sender, EventArgs e)
@@ -169,50 +216,12 @@ namespace BLog
                 
                 //set selected item
                 lsbListDevices.SetSelected(0, true);
-
             }
             catch (Exception objException)
             {
                 // Log the exception
                 MessageBox.Show(objException.StackTrace);
             }
-        }
-
-        public void SetRichTextBox(String text)
-        {
-            if (text.Length <= 1)
-                return;
-
-            if (InvokeRequired)
-            {
-                this.Invoke((MethodInvoker)delegate { SetRichTextBox(text); });
-                return;
-            }
-
-            //ctxbMainOut.SelectionColor = Color.Blue;
-            char logType = text[0];
-
-            FastColoredTextBoxNS.Style textStyle = defaultStyle;
-
-            switch (logType)
-            {
-                case 'V': textStyle = verboseStyle;
-                    break;
-                case 'I': textStyle = infoStyle;
-                    break;
-                case 'D': textStyle = debugStyle;
-                    break;
-                case 'W': textStyle = warningStyle;
-                    break;
-                case 'E': textStyle = errorStyle;
-                    break;            
-            }
-
-            ctxbMainOut.AppendText(text, textStyle);
-            ctxbMainOut.AppendText(Environment.NewLine);
-
-            if (bAutoScroll)
-                ctxbMainOut.GoEnd();
         }
 
         //function to get log
@@ -245,11 +254,16 @@ namespace BLog
                 // Log the exception
                 MessageBox.Show(objException.StackTrace);
             }
-        }
+        }        
 
         public void ctxb_DataReceived(object sender, DataReceivedEventArgs e)
         {
-            SetRichTextBox(e.Data.ToString());
+            if (e.Data != null && e.Data.Length > 1)
+            {
+                mutex.WaitOne();
+                qLogBuffer.Enqueue(e.Data + Environment.NewLine);
+                mutex.ReleaseMutex();
+            }            
         }
 
         private void cbAutoScroll_CheckedChanged(object sender, EventArgs e)
@@ -261,6 +275,6 @@ namespace BLog
             }
             else
                 bAutoScroll = false;
-        }              
+        }                              
     }
 }
